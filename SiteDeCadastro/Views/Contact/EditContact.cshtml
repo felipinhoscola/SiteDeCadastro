@@ -13,14 +13,17 @@
             <div class="mb-3">
                 <label for="CmpNome" class="form-label">Nome Completo</label>
                 <input type="text" class="form-control" id="CmpNome" asp-for="Nome">
+                @Html.ValidationMessageFor(x=>x.Nome)
             </div>
             <div class="mb-3">
                 <label for="CmpEmail" class="form-label">Email</label>
                 <input type="email" class="form-control" id="CmpEmail" placeholder="name@example.com" asp-for="Email">
+                @Html.ValidationMessageFor(x=>x.Email)
             </div>
             <div class="mb-3">
                 <label for="CmpCell" class="form-label">Celular</label>
                 <input type="text" class="form-control" id="CmpCell" placeholder="(00) 00000-0000" asp-for="Celular">
+                @Html.ValidationMessageFor(x=>x.Celular)
             </div>
         </div>
         <div class="d-grid gap-2">

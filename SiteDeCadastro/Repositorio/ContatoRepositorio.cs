@@ -44,7 +44,7 @@ namespace SiteDeCadastro.Repositorio
             return contatoBD;
         }
 
-        public void Apagar(int Id)
+        public bool Apagar(int Id)
         {
             ContatoModel contatoBD = BuscarId(Id);
 
@@ -52,6 +52,7 @@ namespace SiteDeCadastro.Repositorio
 
             _bancoContext.Contatos.Remove(contatoBD);
             _bancoContext.SaveChanges();
+            return true;
 
         }
     }

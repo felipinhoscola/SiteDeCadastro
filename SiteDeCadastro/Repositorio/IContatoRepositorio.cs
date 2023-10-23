@@ -12,6 +12,6 @@ namespace SiteDeCadastro.Repositorio
 
         ContatoModel Adicionar(ContatoModel contato);
 
-        void Apagar(int Id);
+        bool Apagar(int Id);
     }
 }

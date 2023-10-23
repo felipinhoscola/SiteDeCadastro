@@ -7,6 +7,34 @@
     <div>
         <a asp-area="" asp-controller="Contact" asp-action="AddContact"  role="button" class="btn btn-outline-success">Cadastrar Contato</a>
     </div>
+    <br>
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button class="btn btn-danger btn-sm close-alert" type="button" arial-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+        <script>
+            setTimeout(() => {
+                $('.alert').hide('hide');
+            }, 7000)
+        </script>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button class="btn btn-danger btn-sm close-alert" type="button" arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+        <script>
+            setTimeout(() => {
+                $('.alert').hide('hide');
+            }, 7000)
+        </script>
+    }
+
+    
     <div class="text-center mb-4">
         <h1 class="display-1">Listagem De Contatos</h1>
     </div>
