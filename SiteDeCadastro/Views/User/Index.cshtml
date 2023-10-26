@@ -1,0 +1,75 @@
+﻿@model List<UserModel>
+@{
+    ViewData["Title"] = "Listagem De Usuários";
+}
+
+<div class="Container">
+    <div>
+        <a asp-area="" asp-controller="Contact" asp-action="AddContact"  role="button" class="btn btn-outline-success">Adicionar novo usuário</a>
+    </div>
+    <br>
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button class="btn btn-danger btn-sm close-alert" type="button" arial-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+        <script>
+            setTimeout(() => {
+                $('.alert').hide('hide');
+            }, 7000)
+        </script>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button class="btn btn-danger btn-sm close-alert" type="button" arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+        <script>
+            setTimeout(() => {
+                $('.alert').hide('hide');
+            }, 7000)
+        </script>
+    }
+
+    
+    <div class="text-center mb-4">
+        <h1 class="display-1">Listagem De Usuários</h1>
+    </div>
+    <div class="text-center bg-dark text-white div-table table-responsive">
+        <table class="table table-dark table-hover pt-2" id="table-usuarios">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Nome</td>
+                    <td>Login</td>
+                    <td>E-mail</td>
+                    <td>Data de cadastro</td>
+                    <td>Opções</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var usuario in Model)
+                    {
+                        <tr>
+                            <td> @usuario.Id </td>
+                            <td> @usuario.Name </td>
+                            <td> @usuario.Login </td>
+                            <td> @usuario.Email </td>
+                            <td> @usuario.DateCad </td>
+                            <td>
+                                <a role="button" asp-route-id="@usuario.Id" asp-controller="Contact" asp-action="EditContact" class="btn btn-sm  btn-outline-primary">Editar</a>
+                                <a role="button" asp-route-id="@usuario.Id" asp-controller="Contact" asp-action="DelContact" class="btn btn-sm btn-outline-danger">Apagar</a>
+                            </td>
+                        </tr>
+                    }
+                }       
+            </tbody>
+            
+        </table>
+    </div>
+</div>

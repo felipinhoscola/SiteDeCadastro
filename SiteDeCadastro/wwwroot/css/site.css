@@ -37,3 +37,7 @@ body {
     padding: 1rem;
    
 }
+
+.mouse-disable{
+    cursor: not-allowed;
+}

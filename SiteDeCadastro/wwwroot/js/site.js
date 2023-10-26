@@ -2,8 +2,7 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
-let table = new DataTable('#table-contatos', {
+const tableConfig = {
     "ordering": true,
     "paging": true,
     "searching": true,
@@ -32,7 +31,11 @@ let table = new DataTable('#table-contatos', {
     },
     "lengthMenu": [4, 8, 12],
     "autoWidth": true,
-});
+}
+
+let table1 = new DataTable("#table-contatos", tableConfig);
+let table2 = new DataTable("#table-usuarios", tableConfig);
+
 
 $('.close-alert').click(() => {
     $('.alert').hide('hide');

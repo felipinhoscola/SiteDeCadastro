@@ -19,6 +19,7 @@ namespace SiteDeCadastro.Data
                 "TrustServerCertificate=true;");
         }
         public DbSet<ContatoModel> Contatos { get; set; }
+        public DbSet<UserModel> Usuarios  { get; set; }
     }
 }
  
