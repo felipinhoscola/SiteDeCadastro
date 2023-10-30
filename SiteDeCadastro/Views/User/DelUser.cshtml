@@ -1,0 +1,17 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Deletar Contato";
+}
+
+<div class="Container">
+        <div class="text-center mb-4">
+            <h1 class="display-2">Deletar Contato</h1>
+        </div>
+        <div class="text-center mb-4">
+            <h1 class="display-5">Você tem certeza que deseja excluir o cadastro (@Model.Name)?</h1>
+        </div>
+        <div class="d-grid gap-2">
+        <a class="btn btn-danger" role="button" asp-route-id="@Model.Id"  asp-controller="User" asp-action="ConfirmDelUser">Apagar</a>
+            <a class="btn btn-secondary" role="button" asp-controller="Contact" asp-action="Index">Voltar</a>
+        </div>
+</div>

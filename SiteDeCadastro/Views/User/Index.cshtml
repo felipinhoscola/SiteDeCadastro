@@ -5,7 +5,7 @@
 
 <div class="Container">
     <div>
-        <a asp-area="" asp-controller="Contact" asp-action="AddContact"  role="button" class="btn btn-outline-success">Adicionar novo usuário</a>
+        <a asp-area="" asp-controller="User" asp-action="AddUser"  role="button" class="btn btn-outline-success">Adicionar novo usuário</a>
     </div>
     <br>
     @if (TempData["MensagemSucesso"] != null)
@@ -62,8 +62,8 @@
                             <td> @usuario.Email </td>
                             <td> @usuario.DateCad </td>
                             <td>
-                                <a role="button" asp-route-id="@usuario.Id" asp-controller="Contact" asp-action="EditContact" class="btn btn-sm  btn-outline-primary">Editar</a>
-                                <a role="button" asp-route-id="@usuario.Id" asp-controller="Contact" asp-action="DelContact" class="btn btn-sm btn-outline-danger">Apagar</a>
+                                <a role="button" asp-route-id="@usuario.Id" asp-controller="User" asp-action="EditUser" class="btn btn-sm  btn-outline-primary">Editar</a>
+                                <a role="button" asp-route-id="@usuario.Id" asp-controller="User" asp-action="DelUser" class="btn btn-sm btn-outline-danger">Apagar</a>
                             </td>
                         </tr>
                     }
