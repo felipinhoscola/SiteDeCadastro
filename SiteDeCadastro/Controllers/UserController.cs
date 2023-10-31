@@ -50,12 +50,34 @@ namespace SiteDeCadastro.Controllers
             }
             catch (System.Exception er)
             {
-                TempData["MensagemErro"] = "Não foi possivel cadastrar o contato, tente novamente!\n" +
+                TempData["MensagemErro"] = "Não foi possivel cadastrar o usuário, tente novamente!\n" +
                     $"Detalhe do Erro: {er.Message}";
                 return RedirectToAction("Index");
             }
         }
 
+        [HttpPost]
+        public IActionResult EditUser(UserModel Usuario)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Usuario.LastAtt = DateTime.Now;
+
+                    _UserRepositorio.EditUser(Usuario);
+                    TempData["MensagemSucesso"] = "Usuário Atualizadp!";
+                    return RedirectToAction("Index");
+                }
+                return View(Usuario);
+            }
+            catch (System.Exception er)
+            {
+                TempData["MensagemErro"] = "Não foi possivel atualizar o usuário, tente novamente!\n" +
+                    $"Detalhe do Erro: {er.Message}";
+                return RedirectToAction("Index");
+            }
+        }
         public IActionResult ConfirmDelUser(int id)
         {
             try

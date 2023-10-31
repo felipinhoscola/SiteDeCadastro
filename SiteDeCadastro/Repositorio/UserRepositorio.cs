@@ -43,5 +43,22 @@ namespace SiteDeCadastro.Repositorio
             _bancoContext.SaveChanges();
             return true;
         }
+
+        public UserModel EditUser(UserModel usuario)
+        {
+            UserModel userBD = BuscarId(usuario.Id);
+            if (userBD == null) throw new System.Exception("Houve um erro na edição do usuário");
+
+            userBD.Name = usuario.Name;
+            userBD.Login = usuario.Login;
+            userBD.Password = usuario.Password;
+            userBD.Email = usuario.Email;  
+            userBD.Perfil = usuario.Perfil;
+            userBD.LastAtt = usuario.LastAtt;
+
+            _bancoContext.Usuarios.Update(userBD);
+            _bancoContext.SaveChanges();
+            return userBD;
+        }
     }
 }
