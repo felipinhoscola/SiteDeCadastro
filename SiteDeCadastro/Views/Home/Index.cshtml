@@ -4,5 +4,17 @@
 
 <div class="text-center">
     <h1 class="display-4">Bem Vindo</h1>
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button class="btn btn-success btn-sm close-alert" type="button" arial-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+        <script>
+            setTimeout(() => {
+                $('.alert').hide('hide');
+            }, 7000)
+        </script>
+    }
     <p>Site Para Cadastro de Contatos dos Clientes!</p>
 </div>

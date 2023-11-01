@@ -43,6 +43,7 @@
             <thead>
                 <tr>
                     <td>#</td>
+                    <td>Perfil</td>
                     <td>Nome</td>
                     <td>Login</td>
                     <td>E-mail</td>
@@ -57,6 +58,7 @@
                     {
                         <tr>
                             <td> @usuario.Id </td>
+                            <td> @(usuario.Perfil == SiteDeCadastro.Enums.PerfilEnum.Admin ? "Admin" : (usuario.Perfil == SiteDeCadastro.Enums.PerfilEnum.Suporte ? "Suporte" : "Padrão"))</td>
                             <td> @usuario.Name </td>
                             <td> @usuario.Login </td>
                             <td> @usuario.Email </td>

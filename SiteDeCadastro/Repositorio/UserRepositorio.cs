@@ -51,7 +51,6 @@ namespace SiteDeCadastro.Repositorio
 
             userBD.Name = usuario.Name;
             userBD.Login = usuario.Login;
-            userBD.Password = usuario.Password;
             userBD.Email = usuario.Email;  
             userBD.Perfil = usuario.Perfil;
             userBD.LastAtt = usuario.LastAtt;

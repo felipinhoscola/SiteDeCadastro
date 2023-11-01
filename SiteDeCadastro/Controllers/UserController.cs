@@ -57,19 +57,29 @@ namespace SiteDeCadastro.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(UserModel Usuario)
+        public IActionResult EditUser(UserNoPassModel UserNoPass)
         {
             try
             {
+                UserModel usuario = null;
                 if (ModelState.IsValid)
                 {
-                    Usuario.LastAtt = DateTime.Now;
+                    usuario = new UserModel()
+                    {
+                        Id = UserNoPass.Id,
+                        Name = UserNoPass.Name,
+                        Login = UserNoPass.Login,
+                        Email = UserNoPass.Email,
+                        Perfil = UserNoPass.Perfil
+                    };
 
-                    _UserRepositorio.EditUser(Usuario);
-                    TempData["MensagemSucesso"] = "Usuário Atualizadp!";
+                    usuario.LastAtt = DateTime.Now;
+
+                    usuario = _UserRepositorio.EditUser(usuario);
+                    TempData["MensagemSucesso"] = "Usuário Atualizado!";
                     return RedirectToAction("Index");
                 }
-                return View(Usuario);
+                return View(usuario);
             }
             catch (System.Exception er)
             {
