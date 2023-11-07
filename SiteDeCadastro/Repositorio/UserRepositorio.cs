@@ -15,6 +15,11 @@ namespace SiteDeCadastro.Repositorio
 
         public object ModelState { get; private set; }
 
+        public UserModel BuscaLogin(string login)
+        {
+            return _bancoContext.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());//.ToUpper serve para o login não ser case sensitive
+        }
+
         public UserModel AddUser(UserModel usuario)
         {
             _bancoContext.Usuarios.Add(usuario);
@@ -59,5 +64,7 @@ namespace SiteDeCadastro.Repositorio
             _bancoContext.SaveChanges();
             return userBD;
         }
+
+        
     }
 }

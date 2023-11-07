@@ -12,5 +12,6 @@ namespace SiteDeCadastro.Repositorio
 
         UserModel EditUser(UserModel usuario);
         bool ConfirmDelUser(int id);
+        UserModel BuscaLogin(string login);
     }
 }

@@ -6,11 +6,11 @@ namespace SiteDeCadastro.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ILoginRepositorio _LoginRepositorio;
+        private readonly IUserRepositorio _userRepositorio;
 
-        public LoginController(ILoginRepositorio loginRepositorio)
+        public LoginController(IUserRepositorio userRepositorio)
         {
-            _LoginRepositorio = loginRepositorio;
+            _userRepositorio = userRepositorio;
         }
         public IActionResult Index()
         {
@@ -24,17 +24,19 @@ namespace SiteDeCadastro.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (_LoginRepositorio.Login(userLogin))
+                    UserModel usuario = _userRepositorio.BuscaLogin(userLogin.Login);
+
+                    if (usuario != null)
                     {
-                        TempData["MensagemSucesso"] = "Bem Vindo!!";
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        TempData["MensagemErro"] = "Verifique o usuario e senha!!";
+                        if (usuario.ConfirmPass(userLogin.Password))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        TempData["MensagemErro"] = "Senha do usuário é inválida. Por favor, tente novamente.";
                         return View("Index");
-                    }
-  
+                    } 
+
+                    TempData["MensagemErro"] = "Usuário e/ou senha inválido(s). Por favor, tente novamente.";
                 }
                 return View("Index");
             }
