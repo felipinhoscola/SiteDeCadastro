@@ -1,19 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SiteDeCadastro.Models;
 using SiteDeCadastro.Repositorio;
+using SiteDeCadastro.Helper;
 
 namespace SiteDeCadastro.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IUserRepositorio _userRepositorio;
+        private readonly ISessionUser _sessionUser;
 
-        public LoginController(IUserRepositorio userRepositorio)
+        public LoginController(IUserRepositorio userRepositorio, ISessionUser sessionUser)
         {
             _userRepositorio = userRepositorio;
+            _sessionUser = sessionUser;
         }
         public IActionResult Index()
         {
+            //teste para ver se a sessao já esta logada, redicerionando para home
+            if(_sessionUser.GetSessionUser() != null ) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -30,8 +35,10 @@ namespace SiteDeCadastro.Controllers
                     {
                         if (usuario.ConfirmPass(userLogin.Password))
                         {
+                            _sessionUser.CreateSessionUser(usuario);
                             return RedirectToAction("Index", "Home");
                         }
+
                         TempData["MensagemErro"] = "Senha do usuário é inválida. Por favor, tente novamente.";
                         return View("Index");
                     } 
