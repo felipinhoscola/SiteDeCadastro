@@ -1,0 +1,33 @@
+﻿@model UserModel
+@{
+}
+
+<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cadastro De Contatos</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Página Inicial</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contatos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Usuários</a>
+        </li>
+    </ul>
+</div>
+<div class="navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+    <div class="btn-group">
+        <span type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            @Model.Name
+        </span>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" asp-controller="Login" asp-action="Sair">Sair</a></li>
+            <li><a class="dropdown-item">Editar</a></li>
+        </ul>
+    </div>
+</div>

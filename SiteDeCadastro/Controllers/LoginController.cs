@@ -55,5 +55,12 @@ namespace SiteDeCadastro.Controllers
             }
 
         }
+        public IActionResult Sair()
+        {
+            _sessionUser.RemoveSessionUser();
+            return View("Index");
+        }
     }
+
+
 }
