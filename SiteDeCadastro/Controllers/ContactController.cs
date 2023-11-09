@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SiteDeCadastro.Filters;
 using SiteDeCadastro.Models;
 using SiteDeCadastro.Repositorio;
 using System.Diagnostics;
 
 namespace SiteDeCadastro.Controllers {
-
+    
+    [LoggedUserPage]
     public class ContactController : Controller
     {
         private readonly IContatoRepositorio _contatoRepositorio;

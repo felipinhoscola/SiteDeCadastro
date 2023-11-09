@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SiteDeCadastro.Filters;
 using SiteDeCadastro.Models;
 using System.Diagnostics;
 
 namespace SiteDeCadastro.Controllers
 {
+    [LoggedUserPage]
     public class HomeController : Controller
     {
+        
         public IActionResult Index()
         {
             return View();

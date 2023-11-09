@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SiteDeCadastro.Filters;
 using SiteDeCadastro.Models;
 using SiteDeCadastro.Repositorio;
 using System.Collections.Generic;
 
 namespace SiteDeCadastro.Controllers
 {
+    [LoggedAdminPage]
     public class UserController : Controller
     {
         private readonly IUserRepositorio _UserRepositorio;
