@@ -1,4 +1,5 @@
 ﻿using SiteDeCadastro.Enums;
+using SiteDeCadastro.Helper;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,7 +24,12 @@ namespace SiteDeCadastro.Models
 
         public bool ConfirmPass(string password)
         { 
-            return Password == password; // testa se a senha infromada é igual a senha da Model
+            return Password == password.GerarHash(); // testa se a senha infromada é igual a senha da Model
         }
+        
+        public void SetSenhaHash()
+        {
+            Password = Password.GerarHash();
+        } 
     }
 }

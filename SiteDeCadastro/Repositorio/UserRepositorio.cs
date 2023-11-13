@@ -22,6 +22,7 @@ namespace SiteDeCadastro.Repositorio
 
         public UserModel AddUser(UserModel usuario)
         {
+            usuario.SetSenhaHash();
             _bancoContext.Usuarios.Add(usuario);
             _bancoContext.SaveChanges();
 
