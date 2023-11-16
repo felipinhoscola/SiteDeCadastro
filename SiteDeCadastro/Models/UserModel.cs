@@ -31,5 +31,12 @@ namespace SiteDeCadastro.Models
         {
             Password = Password.GerarHash();
         } 
+
+        public string GenerateNewPass()
+        {
+            string newPass = Guid.NewGuid().ToString().Substring(0, 8);
+            Password = newPass.GerarHash();
+            return newPass;
+        }
     }
 }

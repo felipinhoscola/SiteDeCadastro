@@ -21,6 +21,13 @@ namespace SiteDeCadastro.Controllers
             if(_sessionUser.GetSessionUser() != null ) return RedirectToAction("Index", "Home");
             return View();
         }
+        public IActionResult ResetPass() { return View(); }
+
+        public IActionResult Sair()
+        {
+            _sessionUser.RemoveSessionUser();
+            return View("Index");
+        }
 
         [HttpPost]
         public IActionResult Entrar(LoginModel userLogin)
@@ -55,11 +62,36 @@ namespace SiteDeCadastro.Controllers
             }
 
         }
-        public IActionResult Sair()
+        [HttpPost]
+        public IActionResult SendLinktoResetPass(ResetPassModel resetPassModel)
         {
-            _sessionUser.RemoveSessionUser();
-            return View("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    UserModel usuario = _userRepositorio.BuscaEmailELogin(resetPassModel.Email, resetPassModel.Login);
+
+                    if (usuario != null)
+                    {
+                        string newPass = usuario.GenerateNewPass();
+
+                        TempData["MensagemSucesso"] = $"Um E-mail foi enviado com a nova senha.";
+                        return View("Index");
+                    }
+
+                    TempData["MensagemErro"] = "Dados para redefinir a senha estão incorretos.";
+                }
+                return View("ResetPass");
+            }
+            catch (Exception er)
+            {
+                TempData["MensagemErro"] = "Não foi possivel redefinir a senha, tente novamente!\n" +
+                    $"Detalhe do Erro: {er.Message}";
+                return View("ResetPass");
+            }
         }
+
+
     }
 
 

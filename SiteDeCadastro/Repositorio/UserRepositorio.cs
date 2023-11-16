@@ -19,6 +19,10 @@ namespace SiteDeCadastro.Repositorio
         {
             return _bancoContext.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());//.ToUpper serve para o login não ser case sensitive
         }
+        public UserModel BuscaEmailELogin(string email, string login)
+        {
+            return _bancoContext.Usuarios.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
+        }
 
         public UserModel AddUser(UserModel usuario)
         {

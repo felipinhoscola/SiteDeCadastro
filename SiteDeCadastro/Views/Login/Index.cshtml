@@ -27,6 +27,18 @@
                 }, 7000)
             </script>
         }
+        @if (TempData["MensagemSucesso"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <button class="btn btn-danger btn-sm close-alert" type="button" arial-label="Close">X</button>
+                @TempData["MensagemSucesso"]
+            </div>
+            <script>
+                setTimeout(() => {
+                    $('.alert').hide('hide');
+                }, 7000)
+            </script>
+        }
         <form asp-controller="Login" asp-action="Entrar" method="post">
             <div class="form-group mt-3">
                 <label for="username" class="fw-bold">Usuário:</label>
@@ -37,6 +49,9 @@
                 <label for="password" class="fw-bold">Senha:</label>
                 <input type="password" class="form-control" id="cmpPassword" placeholder="Digite sua senha" asp-for="Password">
                 @Html.ValidationMessageFor(x => x.Password)
+            </div>
+            <div>
+                <a class="text-primary  fw-bold" asp-controller="Login" asp-action="ResetPass">Esqueci Minha Senha!</a>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary">Login</button>
