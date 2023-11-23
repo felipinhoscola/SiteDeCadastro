@@ -77,6 +77,7 @@ namespace SiteDeCadastro.Repositorio
             if (userBD == null) throw new System.Exception("Houve um erro em buscar o usuario no banco de dados!");
 
             userBD.Password = usuario.Password;
+            userBD.LastAtt = DateTime.Now;
 
             _bancoContext.Usuarios.Update(userBD);
             _bancoContext.SaveChanges();

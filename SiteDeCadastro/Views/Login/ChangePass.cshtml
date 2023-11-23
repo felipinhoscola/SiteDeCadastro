@@ -1,0 +1,48 @@
+﻿@model ChangePassModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Alterar Senha";
+
+}
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+</style>
+<div class="container login-container">
+    <div class="col-md-6">
+        <h2 class="fw-bold text-center font-monospace">Alterar</h2>
+        @if (TempData["MensagemErro"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <button class="btn btn-danger btn-sm close-alert" type="button" arial-label="Close">X</button>
+                @TempData["MensagemErro"]
+            </div>
+            <script>
+                setTimeout(() => {
+                    $('.alert').hide('hide');
+                }, 7000)
+            </script>
+        }
+        <form asp-controller="Login" asp-action="AlterPass" method="post">
+            <div class="form-group mt-3">
+                <label for="cmpOldPass" class="fw-bold">Senha Atual:</label>
+                <input type="password" class="form-control" id="cmpOldPass" placeholder="Digite sua senha atual" asp-for="OldPass">
+                @Html.ValidationMessageFor(x => x.OldPass)
+            </div>
+            <div class="form-group mt-3">
+                <label for="cmpNewPass" class="fw-bold">Nova Senha:</label>
+                <input type="password" class="form-control" id="cmpNewPass" placeholder="Digite sua nova senha" asp-for="NewPass">
+                @Html.ValidationMessageFor(x => x.NewPass)
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Redefinir Senha</button>
+                <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 using SiteDeCadastro.Models;
 using SiteDeCadastro.Repositorio;
 using SiteDeCadastro.Helper;
+using System.Net.Mail;
 
 namespace SiteDeCadastro.Controllers
 {
@@ -17,13 +18,17 @@ namespace SiteDeCadastro.Controllers
             _sessionUser = sessionUser;
             _email = email;
         }
+
         public IActionResult Index()
         {
             //teste para ver se a sessao já esta logada, redicerionando para home
             if(_sessionUser.GetSessionUser() != null ) return RedirectToAction("Index", "Home");
             return View();
         }
+
         public IActionResult ResetPass() { return View(); }
+
+        public IActionResult ChangePass() { return View(); }
 
         public IActionResult Sair()
         {
@@ -64,6 +69,7 @@ namespace SiteDeCadastro.Controllers
             }
 
         }
+
         [HttpPost]
         public IActionResult SendLinktoResetPass(ResetPassModel resetPassModel)
         {
@@ -108,6 +114,53 @@ namespace SiteDeCadastro.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult AlterPass(ChangePassModel changePass)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    UserModel usuarioLogado = _sessionUser.GetSessionUser();
+
+                    if(usuarioLogado != null)
+                    {
+                        if (usuarioLogado.ConfirmPass(changePass.OldPass))
+                        {
+                            if(!usuarioLogado.ConfirmPass(changePass.NewPass))
+                            {
+                                usuarioLogado.Password = changePass.NewPass;
+
+                                usuarioLogado.SetSenhaHash();
+
+                                _userRepositorio.EditPass(usuarioLogado);
+
+                                TempData["MensagemSucesso"] = "Senha alterada com sucesso!";
+                                return RedirectToAction("Index", "Home");
+                            }
+
+                            TempData["MensagemErro"] = "A senha nova, não pode ser igual a atual!";
+                            return View("ChangePass");
+
+                        }
+
+                        TempData["MensagemErro"] = "Senha atual inválida, verifique!";
+                        return View("ChangePass");
+
+                    }
+
+                    TempData["MensagemErro"] = "Não foi possivel buscar sua sessão, tente novamente!";
+                    //o certo era desconectar a _session e jogar ele na tela de login novamente!
+                }
+                return View("ChangePass");
+            }
+            catch (System.Exception er)
+            {
+                TempData["MensagemErro"] = "Não foi possivel alterar a senha, tente novamente!\n" +
+                    $"Detalhe do Erro: {er.Message}";
+                return View("ChangePass");
+            }
+        }
 
     }
 
