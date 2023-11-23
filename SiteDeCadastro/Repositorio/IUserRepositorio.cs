@@ -11,6 +11,7 @@ namespace SiteDeCadastro.Repositorio
         UserModel BuscarId(int id);
 
         UserModel EditUser(UserModel usuario);
+        UserModel EditPass(UserModel usuario);
         bool ConfirmDelUser(int id);
         UserModel BuscaLogin(string login);
         UserModel BuscaEmailELogin(string email, string login);

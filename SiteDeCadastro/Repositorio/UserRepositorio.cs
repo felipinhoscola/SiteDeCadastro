@@ -70,6 +70,17 @@ namespace SiteDeCadastro.Repositorio
             return userBD;
         }
 
-        
+        public UserModel EditPass(UserModel usuario)
+        {
+            UserModel userBD = BuscarId(usuario.Id);
+
+            if (userBD == null) throw new System.Exception("Houve um erro em buscar o usuario no banco de dados!");
+
+            userBD.Password = usuario.Password;
+
+            _bancoContext.Usuarios.Update(userBD);
+            _bancoContext.SaveChanges();
+            return userBD;
+        }
     }
 }

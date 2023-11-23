@@ -13,6 +13,7 @@ builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
 builder.Services.AddScoped<IUserRepositorio, UserRepositorio>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ISessionUser, SessionUser>();
+builder.Services.AddScoped<IEmail, Email>();
 
 builder.Services.AddSession(o => //adiciona a sessaos ao projeto
 { 

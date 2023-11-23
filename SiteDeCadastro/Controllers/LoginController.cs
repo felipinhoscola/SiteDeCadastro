@@ -9,11 +9,13 @@ namespace SiteDeCadastro.Controllers
     {
         private readonly IUserRepositorio _userRepositorio;
         private readonly ISessionUser _sessionUser;
+        private readonly IEmail _email;
 
-        public LoginController(IUserRepositorio userRepositorio, ISessionUser sessionUser)
+        public LoginController(IUserRepositorio userRepositorio, ISessionUser sessionUser, IEmail email)
         {
             _userRepositorio = userRepositorio;
             _sessionUser = sessionUser;
+            _email = email;
         }
         public IActionResult Index()
         {
@@ -75,7 +77,22 @@ namespace SiteDeCadastro.Controllers
                     {
                         string newPass = usuario.GenerateNewPass();
 
-                        TempData["MensagemSucesso"] = $"Um E-mail foi enviado com a nova senha.";
+                        string msg = $"Sua senha foi alterada, nova senha é: {newPass}";
+
+                        bool emailEnviado = _email.Enviar(usuario.Email, "Sistema de Contatos - Nova senha", msg);
+
+                        if (emailEnviado)
+                        {
+                            //fazer metodo que altera senha
+                            _userRepositorio.EditPass(usuario);
+                            TempData["MensagemSucesso"] = $"Um E-mail foi enviado com a nova senha.";
+                        }
+                        else
+                        {
+                            TempData["MensagemErro"] = "Não conseguimos enviur sua senha. Tente Novamente";
+                        }
+
+
                         return View("Index");
                     }
 
