@@ -4,7 +4,7 @@ namespace SiteDeCadastro.Repositorio
 {
     public interface IContatoRepositorio
     {
-        List<ContatoModel> BuscarTabela();
+        List<ContatoModel> BuscarTabela(int usuarioId);
 
         ContatoModel BuscarId(int Id);
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SiteDeCadastro.Filters;
+using SiteDeCadastro.Helper;
 using SiteDeCadastro.Models;
 using SiteDeCadastro.Repositorio;
 using System.Diagnostics;
@@ -10,14 +11,16 @@ namespace SiteDeCadastro.Controllers {
     public class ContactController : Controller
     {
         private readonly IContatoRepositorio _contatoRepositorio;
-        public ContactController(IContatoRepositorio contatoRepositorio)
+        private readonly ISessionUser _sessionUser;
+        public ContactController(IContatoRepositorio contatoRepositorio, ISessionUser sessionUser)
         {
             _contatoRepositorio = contatoRepositorio;
-
+            _sessionUser = sessionUser;
         }
         public IActionResult Index()
         {
-            List<ContatoModel> tabelaContato = _contatoRepositorio.BuscarTabela();
+            UserModel userLogged = _sessionUser.GetSessionUser();
+            List<ContatoModel> tabelaContato = _contatoRepositorio.BuscarTabela(userLogged.Id);
             return View(tabelaContato);
         }
         public IActionResult AddContact()
@@ -68,12 +71,21 @@ namespace SiteDeCadastro.Controllers {
             {
                 if (ModelState.IsValid)
                 {
+                    UserModel userLogged = _sessionUser.GetSessionUser();
+                    contato.UsuarioId = userLogged.Id;
                     _contatoRepositorio.Adicionar(contato);
                     //variavel temporaria, onde vai receber a mensagem e ser acessada dentro da view.
                     TempData["MensagemSucesso"] = "Contato cadastrado com sucesso!";
                     return RedirectToAction("Index");
                 }
+                string mensagemErro = "Não foi possível cadastrar o contato. Erros de validação:\n";
 
+                foreach (var erro in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    mensagemErro += $"{erro.ErrorMessage}\n";
+                }
+
+                TempData["MensagemErro"] = mensagemErro;
                 return View(contato);
             }
             catch (System.Exception er)
@@ -93,6 +105,8 @@ namespace SiteDeCadastro.Controllers {
             {
                 if (ModelState.IsValid)
                 {
+                    UserModel userLogged = _sessionUser.GetSessionUser();
+                    contato.UsuarioId = userLogged.Id;
                     _contatoRepositorio.SaveEdit(contato);
                     TempData["MensagemSucesso"] = "Contato atualizado com sucesso!!";
                     return RedirectToAction("Index");

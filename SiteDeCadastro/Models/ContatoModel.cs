@@ -14,5 +14,7 @@ namespace SiteDeCadastro.Models
         [Required(ErrorMessage = "Insira o Celular do contato!!")]
         [Phone(ErrorMessage = "Número de celular é invalido!")]
         public string Celular { get; set; }
+        public int? UsuarioId { get; set; }
+        public UserModel? Usuario { get; set; }
     }
 }
