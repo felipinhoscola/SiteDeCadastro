@@ -1,0 +1,29 @@
+﻿@model List<ContatoModel>
+
+<table class="table table-dark table-hover pt-2" id="table-listagem-contatos">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Nome</td>
+            <td>E-Mail</td>
+            <td>Celular</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var contato in Model)
+            {
+                <tr>
+                    <td> @contato.Id </td>
+                    <td> @contato.Nome </td>
+                    <td> @contato.Email </td>
+                    <td> @contato.Celular </td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+

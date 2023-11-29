@@ -47,6 +47,7 @@
                     <td>Nome</td>
                     <td>Login</td>
                     <td>E-mail</td>
+                    <td>Qtd. Contatos</td>
                     <td>Data de cadastro</td>
                     <td>Opções</td>
                 </tr>
@@ -62,6 +63,9 @@
                             <td> @usuario.Name </td>
                             <td> @usuario.Login </td>
                             <td> @usuario.Email </td>
+                            <td>
+                                <a href="#" usuario-id="@usuario.Id" class="btn btn-success btn-sm btn-total-contatos">@(usuario.Contatos != null && usuario.Contatos.Any() ? usuario.Contatos.Count() : 0)</a>
+                            </td>
                             <td> @usuario.DateCad </td>
                             <td>
                                 <a role="button" asp-route-id="@usuario.Id" asp-controller="User" asp-action="EditUser" class="btn btn-sm  btn-outline-primary">Editar</a>
@@ -73,5 +77,20 @@
             </tbody>
             
         </table>
+    </div>
+    <div class="modal fade" id="modalContatoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Listagem De Contatos</h5>
+                    <button type="button" class="close btn-fechar-modal-contato" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div id="listaContatosUsuario" class="text-center bg-dark text-white div-table table-responsive"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

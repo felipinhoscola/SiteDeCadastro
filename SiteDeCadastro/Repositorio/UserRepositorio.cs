@@ -1,4 +1,5 @@
-﻿using SiteDeCadastro.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SiteDeCadastro.Data;
 using SiteDeCadastro.Migrations;
 using SiteDeCadastro.Models;
 
@@ -40,7 +41,9 @@ namespace SiteDeCadastro.Repositorio
 
         public List<UserModel> BuscarUsers()
         {
-            return _bancoContext.Usuarios.ToList();
+            return _bancoContext.Usuarios
+                .Include(x => x.Contatos)
+                .ToList();
         }
 
         public bool ConfirmDelUser(int id)

@@ -10,9 +10,11 @@ namespace SiteDeCadastro.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepositorio _UserRepositorio;
-        public UserController(IUserRepositorio userRepositorio)
+        private readonly IContatoRepositorio _contatoRepositorio;
+        public UserController(IUserRepositorio userRepositorio, IContatoRepositorio contatoRepositorio)
         {
             _UserRepositorio = userRepositorio;
+            _contatoRepositorio = contatoRepositorio;
         }
         public IActionResult Index()
         {
@@ -32,6 +34,12 @@ namespace SiteDeCadastro.Controllers
         public IActionResult DelUser(int id)
         {
             return View(_UserRepositorio.BuscarId(id));
+        }
+
+        public IActionResult ListarContatosPorUsuario(int id) 
+        {
+            List<ContatoModel> contatos = _contatoRepositorio.BuscarTabela(id);
+            return PartialView("_ContatosUsuario", contatos);
         }
 
         [HttpPost]
