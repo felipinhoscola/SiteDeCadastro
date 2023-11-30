@@ -22,7 +22,7 @@ namespace SiteDeCadastro.Models
         public DateTime DateCad { get; set; }
         public DateTime? LastAtt { get; set; }
 
-        public virtual List<ContatoModel> Contatos { get; set; }
+        public virtual List<ContatoModel>? Contatos { get; set; }
 
         public bool ConfirmPass(string password)
         { 

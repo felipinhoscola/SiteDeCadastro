@@ -56,7 +56,15 @@ namespace SiteDeCadastro.Controllers
                     TempData["MensagemSucesso"] = "Usuário Cadastrado!";
                     return RedirectToAction("Index");
                 }
-                return View(Usuario);
+                string mensagemErro = "Não foi possível cadastrar o contato. Erros de validação:\n";
+
+                foreach (var erro in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    mensagemErro += $"{erro.ErrorMessage}\n";
+                }
+
+                TempData["MensagemErro"] = mensagemErro;
+                return View("Index");
             }
             catch (System.Exception er)
             {
